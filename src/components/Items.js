@@ -1,33 +1,57 @@
 import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
 import styled from "styled-components";
-import products from "../data";
 import Product from "../pages/Product";
 import { Form, FormControl } from "react-bootstrap";
+import { Search } from "@mui/icons-material";
+import { useSelect } from "@mui/base";
+import { useSelector } from "react-redux";
 
 const Centering = styled.span`
   text-align: center;
   font-size: 30px;
   margin-top: 20px;
   font-weight: bold;
-  color: gray;
-  border-bottom: 3px solid red;
+  color: red;
+  border-bottom: 3px solid aqua;
   margin-left: 45%;
 `;
 
-const SearchTitle = styled.div`
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
+const HeaderSearch = styled.div`
+  display: flex;
+  flex-grow: 1;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #fff;
+  margin-left: 200px;
+  margin-right: 200px;
   margin-top: 20px;
 
-`
-const Title = styled.div`
-  margin-right: 5px;
+  :focus-within{
+    box-shadow: 0 0 0 3px #f90;
+  }
+`;
+const HeaderSearchInput = styled.input`
+  flex-grow: 1;
+  border: 0;
+  background-color: #d8d8d8;
   color: #000;
-  font-weight: bold;
-`
+
+  :focus {
+    outline: none;
+  }
+`;
+const HeaderSearchIconContainer = styled.div`
+  background-color: orange;
+  color: #000;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+
 
  
 
@@ -35,6 +59,10 @@ const Title = styled.div`
 const Items = () => {
 
   const [searchitem, setSearchitem] = useState('')
+
+  const products = useSelector((state) => state.cart.products)
+  
+  const loggedin = useSelector((state) => state.auth.isLoggedin)
   
 
   const searchchangehandler = (e) => {
@@ -44,23 +72,15 @@ const Items = () => {
   return (
     <>
       <Centering>All Items</Centering>
-      <SearchTitle>
-        <Title>
-        Search
-          </Title>
-        <Form className="d-flex">
-        <FormControl
-          type="search"
-          placeholder="Search Product"
-          className="me-2"
-          aria-label="Search"
-          onChange={searchchangehandler}
-
-        />
-        </Form>
-      </SearchTitle>
+      <HeaderSearch>
+          <HeaderSearchInput type="text" onChange={searchchangehandler}/>
+          <HeaderSearchIconContainer>
+            <Search />
+          </HeaderSearchIconContainer>
+        </HeaderSearch>
       
-      <Box sx={{ marginTop: 10, marginLeft: 14 }}>
+          
+     <Box sx={{ marginTop: 10, marginLeft: 14 }}>
         <Grid container spacing={4}>
           {products.filter((val) => {
             if(searchitem===""){
@@ -82,6 +102,8 @@ const Items = () => {
           })}
         </Grid>
       </Box>
+      {/* {!loggedin && 
+      <h2 style={{textAlign: 'center', marginTop: '20px'}}>You must be Logged In to  view the Items.</h2>} */}
     </>
   );
 };

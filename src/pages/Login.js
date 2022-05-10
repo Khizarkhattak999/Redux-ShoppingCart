@@ -5,13 +5,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Error = styled.div`
   color: red;
@@ -26,6 +27,8 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [emailisValid, setEmailisValid] = useState(true);
   const [passwordisValid, setPasswordisValid] = useState(true);
+
+  const dispatch = useDispatch()
 
 
   const emailhandler = (e) => {
@@ -51,6 +54,8 @@ function SignIn() {
       return;
     }
     setPasswordisValid(true);
+
+    dispatch({type: 'Loginhandler'})
     console.log(email, password);
   };
 
@@ -112,18 +117,21 @@ function SignIn() {
                 )}
               </Grid>
               <Grid item xs={12}>
+              {/* <Link to='/' style={{textDecoration: 'none'}}> */}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, backgroundColor: "#17C5C2" }}
+                // onClick={() => dispatch({type: 'Loginhandler'})}
               >
                 Sign In
               </Button>
+              {/* </Link> */}
               </Grid>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="/signup" variant="body2">
+                  <Link to="/signup" variant="body2" >
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

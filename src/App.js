@@ -6,8 +6,8 @@ import Login from "./pages/Login";
 import Product from "./pages/Product";
 import SignUp from "./pages/Signup";
 import Details from "./pages/Details";
-import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
+import Favourites from "./pages/Favourites";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/product" element={<Product />} />
           <Route path="/details/:_id" element={<Details />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/favourites" element={<Favourites />} />
         </Routes>
         <Footer />
       </div>
